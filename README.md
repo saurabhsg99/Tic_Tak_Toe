@@ -9,5 +9,15 @@ Here, I have developed this game using the C language.
 
 ## Demo
 
-[Insert gif or link to demo](https://replit.com/@saurabhsg99/Tictaktoe?v=1)https://replit.com/@saurabhsg99/Tictaktoe?v=1
+https://replit.com/@saurabhsg99/Tictaktoe?v=1
+
+
+## Screenshots
+
+<img src = "Screenshot 2023-07-17 221745.png" alt = "Screenshots">
+<p float ="left">
+<img src = "Screenshot 2023-07-17 221829.png" width="33%"  alt = "Screenshots">
+<img src = "Screenshot 2023-07-17 221806.png" width="33%" alt = "Screenshots">
+</p>
+
 
