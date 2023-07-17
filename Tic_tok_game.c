@@ -6,12 +6,6 @@
 #include <time.h>
 #include <windows.h>
 
-#ifdef _WIN32
-#define OS "W10"
-#elif __unix__
-#define OS "posix"
-#endif
-
 #define TRUE 1
 #define FALSE 0
 void PRINTC(int c, char *s)
@@ -25,12 +19,7 @@ void PRINTC(int c, char *s)
 void board(char x, char o, unsigned char *player1, unsigned char *player2, char *a)
 {
     int i;
-    if (OS == "W10")
-        system("cls");
-    if (OS == "posix")
-        system("clear");
-    if (OS == "W10")
-        system("color 02");
+    system("cls"); //  to clear 
     PRINTC(3, "\t************___ Tic-Tac-Toe____************\n\n");
 
     printf("Player "
@@ -102,20 +91,18 @@ int checkforwin(char *a)
 void rules()
 {
     char link;
-        PRINTC(3, "\t************___ Tic-Tac-Toe____************\n\n");
-    
+    PRINTC(3, "\n\t************___ Tic-Tac-Toe____************\n\n");
+
     printf("Rules:-\n");
-    printf("\n\t1:Each player will be entering the number to put respective X or O in the desired position");
+    printf("\n\t1:Each player will be entering the number to put respective X or O in the desired position.");
     printf("\n\t2:Player who gets a combination of 3 same characters either diagonal or horizontally or \n  vertically will be declared as the winner");
     printf("\n\nEnjoy the game! \n\n");
     printf("For more clarifications press Y else type any other character:- ");
     scanf("%c", &link);
     if (link == 'y' || link == 'Y')
     {
-        if (OS == "W10")
-            system("start http://www.wikihow.com/Play-Tic-Tac-Toe");
-        if (OS == "posix")
-            system("firefox http://www.wikihow.com/Play-Tic-Tac-Toe");
+
+        system("start http://www.wikihow.com/Play-Tic-Tac-Toe");
     }
 }
 
@@ -150,8 +137,8 @@ void animation()
     int k = 50;
     for (int i = 0; i < l && k; i++)
     {
-       Sleep(90);
-        printf("\033[%dm", 30 + i%7);
+        Sleep(90);
+        printf("\033[%dm", 30 + i % 7);
         printf("%c ", win[i]);
         printf("\033[0m");
         if (i == 5)
@@ -170,20 +157,20 @@ void animation()
 int main()
 {
     char x, o, symbol, re, start, dec;
-    char a[9] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
     char player1[50], player2[50];
     int player = 1, choice, score = -1, s;
 
-   rules();
+    rules();
 
     FILE *p;
-    p = fopen("score.txt","r");
-    if(!p){
-    p = fopen("score.txt","w");
-    fprintf(p,"\t%s","Player 1");
-    fprintf(p,"\t\t%s","Player 2");
-    fprintf(p,"\t  %s","Winner");
-    fprintf(p,"\n%s","---------------------------------------------------------------");
+    p = fopen("score.txt", "r");
+    if (!p)
+    {
+        p = fopen("score.txt", "w");
+        fprintf(p, "\t%s", "Player 1");
+        fprintf(p, "\t\t%s", "Player 2");
+        fprintf(p, "\t  %s", "Winner");
+        fprintf(p, "\n%s", "---------------------------------------------------------------");
     }
     fclose(p);
 
@@ -221,98 +208,115 @@ int main()
                                       : 0;
 
         } while (!strcmp(player1, player2));
-
-        decision(&x, &o, player1);
-
-        if (OS == "W10")
-            system("color 0c");
-       
-        board(x, o, player1, player2, a);
-
+        char option = 'n';
         do
         {
-            int flag = 0;
-            player = ((player % 2) ? 1 : 2);
-            if (player == 1)
-                printf("\x1b[30m""Press any digit from 1-9 to fill your response \n""\x1b[0m""\x1b[37m"" %s's  turn : ""\x1b[0m", player1);
-            else
-                printf("\x1b[30m""Press any digit from 1-9 to fill your response \n""\x1b[0m""\x1b[37m"" %s's  turn : ""\x1b[0m", player2);
-               
+            char a[9] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
-            scanf("%d", &choice);
+            decision(&x, &o, player1);
 
-            symbol = ((player == 1) ? x : o);
+            board(x, o, player1, player2, a);
 
-            if (choice == 1 && a[0] == '1')
-                a[0] = symbol;
-            else if (choice == 2 && a[1] == '2')
-                a[1] = symbol;
-            else if (choice == 3 && a[2] == '3')
-                a[2] = symbol;
-            else if (choice == 4 && a[3] == '4')
-                a[3] = symbol;
-            else if (choice == 5 && a[4] == '5')
-                a[4] = symbol;
-            else if (choice == 6 && a[5] == '6')
-                a[5] = symbol;
-            else if (choice == 7 && a[6] == '7')
-                a[6] = symbol;
-            else if (choice == 8 && a[7] == '8')
-                a[7] = symbol;
-            else if (choice == 9 && a[8] == '9')
-                a[8] = symbol;
-            else
+            do
             {
-                printf("\n\n \t\t Wrong Selection\n");
-                // player--;
-                flag = 1;
+                int flag = 0;
+                player = ((player % 2) ? 1 : 2);
+                if (player == 1)
+                    printf("\x1b[30m"
+                           "Press any digit from 1-9 to fill your response \n"
+                           "\x1b[0m"
+                           "\x1b[37m"
+                           " %s's  turn : "
+                           "\x1b[0m",
+                           player1);
+                else
+                    printf("\x1b[30m"
+                           "Press any digit from 1-9 to fill your response \n"
+                           "\x1b[0m"
+                           "\x1b[37m"
+                           " %s's  turn : "
+                           "\x1b[0m",
+                           player2);
+
+                scanf("%d", &choice);
+
+                symbol = ((player == 1) ? x : o);
+
+                if (choice == 1 && a[0] == '1')
+                    a[0] = symbol;
+                else if (choice == 2 && a[1] == '2')
+                    a[1] = symbol;
+                else if (choice == 3 && a[2] == '3')
+                    a[2] = symbol;
+                else if (choice == 4 && a[3] == '4')
+                    a[3] = symbol;
+                else if (choice == 5 && a[4] == '5')
+                    a[4] = symbol;
+                else if (choice == 6 && a[5] == '6')
+                    a[5] = symbol;
+                else if (choice == 7 && a[6] == '7')
+                    a[6] = symbol;
+                else if (choice == 8 && a[7] == '8')
+                    a[7] = symbol;
+                else if (choice == 9 && a[8] == '9')
+                    a[8] = symbol;
+                else
+                {
+                    printf("\n\n \t\t Wrong Selection\n");
+                    // player--;
+                    flag = 1;
+                }
+                if (!flag)
+                {
+
+                    score = checkforwin(a);
+
+                    player++;
+
+                    board(x, o, player1, player2, a);
+                }
+            } while (score == -1);
+
+            p = fopen("score.txt", "a+");
+            if (score == 1)
+            {
+
+                if (player == 2)
+                {
+                    printf("\x1b[33m"
+                           "\n\nPlayer %s Wins!! \n\n"
+                           "\x1b[0m",
+                           player1); // do some animation
+                    animation();
+                    fprintf(p, "\t\t%7s", player1);
+                }
+                else
+                {
+                    printf("\x1b[33m"
+                           "\n\nPlayer %s Wins!!\n\n"
+                           "\x1b[0m",
+                           player2);
+                    animation();
+                    fprintf(p, "\t\t%7s", player2);
+                }
             }
-            if (!flag)
-            {
-
-                score = checkforwin(a);
-
-                player++;
-
-                board(x, o, player1, player2, a);
-            }
-        } while (score == -1);
-
-        p = fopen("score.txt", "a+");
-        if (score == 1)
-        {
-
-            if (player == 2)
-            {
-                printf("\x1b[33m""\n\nPlayer %s Wins!! \n\n""\x1b[0m", player1); // do some animation
-                animation();
-                fprintf(p, "\t\t%7s", player1);
-                getchar();
-            }
             else
             {
-                printf("\x1b[33m""\n\nPlayer %s Wins!!\n\n""\x1b[0m", player2);
-                animation();
-                fprintf(p, "\t\t%7s", player2);
-                getchar();
+                printf("\n\n Game Draws !\n\n");
+                fprintf(p, "\t\t%7s", "DRAW");
             }
             fclose(p);
-        }
-        else
-        {
-            printf("\n\n Game Draws !\n\n");
-            fprintf(p, "\t\t%7s", "DRAW");
             getchar();
-        }
+            printf("\nDo you want to play more (y/n) : ");
+            scanf("%c", &option);
+        } while (option == 'y' || option == 'Y');
         break;
 
     case 2:
 
     {
-        if (OS == "W10")
-            system("cls");
-        if (OS == "posix")
-            system("clear");
+
+        system("cls");
         printf("\n\n");
         printf("\t*************  LEADERBOARD  ****************\n\n");
         char c;
