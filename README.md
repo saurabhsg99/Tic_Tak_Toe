@@ -9,5 +9,5 @@ Here, I have developed this game using the C language.
 
 ## Demo
 
-Insert gif or link to demo
+[Insert gif or link to demo](https://replit.com/@saurabhsg99/Tictaktoe?v=1)https://replit.com/@saurabhsg99/Tictaktoe?v=1
 
